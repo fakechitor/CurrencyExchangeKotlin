@@ -5,5 +5,5 @@ import jakarta.ws.rs.core.Application
 
 @ApplicationPath("/api")
 class HelloApplication : Application() {
-
+    private var test = "test"
 }
