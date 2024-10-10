@@ -9,15 +9,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="" />
+    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="refactor: created new project">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/AddCurrency.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/DbURL.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/GetCurrencies.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/GetCurrency.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/CurrencyDAO.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/DAO.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/database/Database.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Currency.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Entity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/currencies.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/HelloApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/HelloResource.kt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -32,26 +61,62 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2mTtfb7s4jLtiV1awU8pU08O5Ti" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 10.1.30.executor": "Run",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.generated-requests | #8.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.DatabaseKt.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.currencyExchange [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.currencyExchange [org.apache.maven.plugins:maven-install-plugin:3.1.1:help].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.30.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/IdeaProjects/CurrencyExchangeKotlin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\IdeaProjects\CurrencyExchangeKotlin\src\main\resources\webapp\WEB-INF" />
+      <recent name="C:\Users\Lenovo\IdeaProjects\CurrencyExchangeKotlin\src\main\resources\webapp" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="main.kotlin.currencyexchange.data.entities" />
+      <recent name="main.kotlin.currencyexchange.data.dao" />
+      <recent name="main.kotlin.currencyexchange.model" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Tomcat 10.1.30" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.30" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER" value="false" />
@@ -158,11 +223,81 @@
       <option name="presentableId" value="Default" />
       <updated>1727112498446</updated>
       <workItem from="1727112499443" duration="30000" />
-      <workItem from="1727112555530" duration="81000" />
+      <workItem from="1727112555530" duration="7282000" />
+      <workItem from="1727159777939" duration="22000" />
+      <workItem from="1727160877222" duration="1000" />
+      <workItem from="1727166070073" duration="566000" />
+      <workItem from="1727166650906" duration="592000" />
+      <workItem from="1727167256137" duration="1931000" />
+      <workItem from="1727190103284" duration="1001000" />
+      <workItem from="1727271707062" duration="44000" />
+      <workItem from="1727271758071" duration="82000" />
+      <workItem from="1727350397773" duration="3780000" />
+      <workItem from="1727357655414" duration="2353000" />
+      <workItem from="1727360031428" duration="5339000" />
+      <workItem from="1727379942201" duration="1190000" />
+      <workItem from="1727469203152" duration="132000" />
+      <workItem from="1727516858417" duration="3226000" />
+      <workItem from="1727542551523" duration="4558000" />
+      <workItem from="1727694338502" duration="1294000" />
+      <workItem from="1727720047352" duration="71000" />
+      <workItem from="1727787057426" duration="384000" />
+      <workItem from="1727787610607" duration="5350000" />
+      <workItem from="1727871885840" duration="3773000" />
+      <workItem from="1727895625461" duration="415000" />
+      <workItem from="1727981975408" duration="386000" />
+      <workItem from="1727983800032" duration="58000" />
+      <workItem from="1728213973978" duration="148000" />
+      <workItem from="1728334811139" duration="948000" />
+      <workItem from="1728373317215" duration="208000" />
+      <workItem from="1728421310402" duration="42000" />
+      <workItem from="1728474364418" duration="3206000" />
+      <workItem from="1728495094756" duration="60000" />
+      <workItem from="1728495165222" duration="324000" />
+      <workItem from="1728495502883" duration="436000" />
+      <workItem from="1728495947863" duration="2000" />
+      <workItem from="1728495965207" duration="4486000" />
+      <workItem from="1728567190364" duration="1718000" />
+      <workItem from="1728595223562" duration="298000" />
     </task>
+    <task id="LOCAL-00001" summary="1st commit">
+      <option name="closed" value="true" />
+      <created>1727112880750</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727112880750</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1st commit" />
+    <MESSAGE value="refactor: created new project" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: created new project" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
