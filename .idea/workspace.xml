@@ -9,12 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="feat: currencyDAO getAll and getByCode methods">
+    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="build: workspace.xml">
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/AddCurrency.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/GetCurrencies.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/currencies.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/TestServlet.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/GetCurrencies.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/GetCurrencies.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/CurrencyDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/CurrencyDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Currency.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Currency.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +74,7 @@
     "HTTP Request.currenciesRequests | All currencies.executor": "Run",
     "HTTP Request.currenciesRequests | Test USD currency.executor": "Run",
     "HTTP Request.currenciesRequests | Test empty /currency.executor": "Run",
+    "HTTP Request.currenciesRequests | Test inserting of new currency.executor": "Run",
     "HTTP Request.currenciesRequests | Test non-existing currency.executor": "Run",
     "HTTP Request.generated-requests | #8.executor": "Run",
     "Kotlin.DatabaseKt.executor": "Run",
@@ -89,7 +92,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -121,13 +124,13 @@
     <configuration name="All in currenciesRequests" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http">
       <method v="2" />
     </configuration>
-    <configuration name="currenciesRequests | All currencies" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" requestIdentifier="All currencies" runType="Run single request">
-      <method v="2" />
-    </configuration>
     <configuration name="currenciesRequests | Test USD currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="2" requestIdentifier="Test USD currency" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="currenciesRequests | Test empty /currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="4" requestIdentifier="Test empty /currency" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="currenciesRequests | Test inserting of new currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="5" requestIdentifier="Test inserting of new currency" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="currenciesRequests | Test non-existing currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="3" requestIdentifier="Test non-existing currency" runType="Run single request">
@@ -222,11 +225,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.currenciesRequests | Test inserting of new currency" />
         <item itemvalue="HTTP Request.All in currenciesRequests" />
         <item itemvalue="HTTP Request.currenciesRequests | Test empty /currency" />
         <item itemvalue="HTTP Request.currenciesRequests | Test non-existing currency" />
         <item itemvalue="HTTP Request.currenciesRequests | Test USD currency" />
-        <item itemvalue="HTTP Request.currenciesRequests | All currencies" />
       </list>
     </recent_temporary>
   </component>
@@ -284,7 +287,7 @@
       <workItem from="1728567190364" duration="1718000" />
       <workItem from="1728595223562" duration="4616000" />
       <workItem from="1728668065112" duration="7958000" />
-      <workItem from="1728726592499" duration="5998000" />
+      <workItem from="1728726592499" duration="9648000" />
     </task>
     <task id="LOCAL-00001" summary="1st commit">
       <option name="closed" value="true" />
@@ -366,7 +369,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728732600701</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: added servlet /currencies">
+      <option name="closed" value="true" />
+      <created>1728732638029</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732638029</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: added database">
+      <option name="closed" value="true" />
+      <created>1728732664713</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732664713</updated>
+    </task>
+    <task id="LOCAL-00013" summary="build: workspace.xml">
+      <option name="closed" value="true" />
+      <created>1728732694479</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732694479</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,7 +422,10 @@
     <MESSAGE value="refactor: deleted Entity.kt" />
     <MESSAGE value="feat: added /currency/* servlets and 200,404,400 http codes" />
     <MESSAGE value="feat: currencyDAO getAll and getByCode methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: currencyDAO getAll and getByCode methods" />
+    <MESSAGE value="feat: added servlet /currencies" />
+    <MESSAGE value="feat: added database" />
+    <MESSAGE value="build: workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="build: workspace.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

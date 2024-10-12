@@ -65,7 +65,19 @@ class CurrencyDAO() : DAO{
     }
 
     override fun save(currency: Currency) {
-        TODO("Not yet implemented")
+        val sql = "INSERT INTO Currencies (Code, FullName, Sign) VALUES (?, ?, ?)"
+        try {
+            connector.getConnection()?.use { connection ->
+                connection.prepareStatement(sql).use { ps ->
+                    ps.setString(1, currency.currencyCode)
+                    ps.setString(2, currency.name)
+                    ps.setString(3, currency.sign)
+                    ps.executeUpdate() > 0
+                }
+            }
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
     }
 
 

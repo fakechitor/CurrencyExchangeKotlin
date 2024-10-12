@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.data.dao.CurrencyDAO
 
 @WebServlet(name = "getCurrency", value = ["/currency/*"])
-class GetCurrency : HttpServlet() {
+class CurrencyServlet : HttpServlet() {
     private val currencyDAO = CurrencyDAO()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {

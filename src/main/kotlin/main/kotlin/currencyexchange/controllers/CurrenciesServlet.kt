@@ -10,7 +10,7 @@ import main.kotlin.currencyexchange.data.entities.Currency
 
 
 @WebServlet(name = "getCurrencies", value = ["/currencies"])
-class GetCurrencies : HttpServlet() {
+class CurrenciesServlet : HttpServlet() {
     private val gson = Gson()
     private val currencyDAO  = CurrencyDAO()
 
@@ -32,7 +32,22 @@ class GetCurrencies : HttpServlet() {
         }
         val jsonResponse = gson.toJson(responseData)
         printWriter.write(jsonResponse)
+    }
 
+    override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
+        try{
+            val currencyCode = req.getParameter("code")
+            val name = req.getParameter("name")
+            val sign = req.getParameter("sign")
+            if (currencyCode.isNullOrEmpty() || name.isNullOrEmpty() || sign.isNullOrEmpty()) {
+                resp.status = HttpServletResponse.SC_BAD_REQUEST
+            }
+            val currency = Currency(currencyCode, name,sign)
+            currencyDAO.save(currency)
+        }
+        catch(e : Exception){
+            e.printStackTrace()
+        }
 
     }
 }
