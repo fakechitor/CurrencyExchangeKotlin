@@ -9,14 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="build: workspace.xml">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/AddCurrency.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/TestServlet.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" afterDir="false" />
+    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="chore: unused import">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/GetCurrencies.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/GetCurrencies.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/CurrencyDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/CurrencyDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Currency.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Currency.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +31,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;fakechitor&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/fakechitor/CurrencyExchangeKotlin&quot;,
+    &quot;accountId&quot;: &quot;80bee9b6-1dcd-45a3-bd23-9f0bf0e77310&quot;
+  }
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -138,10 +145,11 @@
     </configuration>
     <configuration name="Tomcat 10.1.30" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.30" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="CurrencyExchangeKotlin:war exploded">
+        <artifact name="currencyExchange:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/CurrencyExchangeKotlin_war_exploded" />
+            <option name="CONTEXT_PATH" value="/currencyExchange_war_exploded" />
           </settings>
         </artifact>
       </deployment>
@@ -220,9 +228,18 @@
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="CurrencyExchangeKotlin:war exploded" />
+          <artifact name="currencyExchange:war exploded" />
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="HTTP Request.All in currenciesRequests" />
+      <item itemvalue="HTTP Request.currenciesRequests | Test empty /currency" />
+      <item itemvalue="HTTP Request.currenciesRequests | Test inserting of new currency" />
+      <item itemvalue="HTTP Request.currenciesRequests | Test non-existing currency" />
+      <item itemvalue="HTTP Request.currenciesRequests | Test USD currency" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.30" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="HTTP Request.currenciesRequests | Test inserting of new currency" />
@@ -287,7 +304,8 @@
       <workItem from="1728567190364" duration="1718000" />
       <workItem from="1728595223562" duration="4616000" />
       <workItem from="1728668065112" duration="7958000" />
-      <workItem from="1728726592499" duration="9648000" />
+      <workItem from="1728726592499" duration="11125000" />
+      <workItem from="1728738030263" duration="312000" />
     </task>
     <task id="LOCAL-00001" summary="1st commit">
       <option name="closed" value="true" />
@@ -393,7 +411,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728732694479</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: added POST for currencies">
+      <option name="closed" value="true" />
+      <created>1728736614577</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1728736614577</updated>
+    </task>
+    <task id="LOCAL-00015" summary="chore: unused import">
+      <option name="closed" value="true" />
+      <created>1728736683944</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728736683944</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +459,9 @@
     <MESSAGE value="feat: added servlet /currencies" />
     <MESSAGE value="feat: added database" />
     <MESSAGE value="build: workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="build: workspace.xml" />
+    <MESSAGE value="feat: added POST for currencies" />
+    <MESSAGE value="chore: unused import" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: unused import" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,0 +1,10 @@
+### Get All /currencies
+GET http://localhost:8080/currencyExchange_war_exploded//currencies
+### Get valid currency /currency/USD
+GET http://localhost:8080/currencyExchange_war_exploded//currencies
+### Get emtpty /currency
+GET http://localhost:8080/currencyExchange_war_exploded//currencies
+### Get nonexisting /currency/QQQ
+GET http://localhost:8080/currencyExchange_war_exploded//currencies
+### Post /currencies
+POST http://localhost:8080/currencyExchange_war_exploded//currencies?code=WWW&name=test&sign=!
