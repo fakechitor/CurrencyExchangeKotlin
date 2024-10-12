@@ -1,6 +1,5 @@
 package main.kotlin.currencyexchange.data.database
 
-import main.kotlin.currencyexchange.data.entities.Currency
 import java.sql.Connection
 import java.sql.DriverManager
 
