@@ -9,23 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="refactor: created new project">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/AddCurrency.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/DbURL.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/GetCurrencies.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/GetCurrency.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/CurrencyDAO.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/dao/DAO.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/database/Database.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Currency.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/entities/Entity.kt" afterDir="false" />
+    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="feat: currencyDAO getAll and getByCode methods">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/AddCurrency.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/controllers/GetCurrencies.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/currencies.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/HelloApplication.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/HelloResource.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTTP Request" />
+        <option value="Kotlin Data Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
       </list>
@@ -75,49 +66,73 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP Request.generated-requests | #8.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.DatabaseKt.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.currencyExchange [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.currencyExchange [org.apache.maven.plugins:maven-install-plugin:3.1.1:help].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.30.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/IdeaProjects/CurrencyExchangeKotlin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.All in currenciesRequests.executor": "Run",
+    "HTTP Request.currenciesRequests | All currencies.executor": "Run",
+    "HTTP Request.currenciesRequests | Test USD currency.executor": "Run",
+    "HTTP Request.currenciesRequests | Test empty /currency.executor": "Run",
+    "HTTP Request.currenciesRequests | Test non-existing currency.executor": "Run",
+    "HTTP Request.generated-requests | #8.executor": "Run",
+    "Kotlin.DatabaseKt.executor": "Run",
+    "Maven.currencyExchange [clean].executor": "Run",
+    "Maven.currencyExchange [org.apache.maven.plugins:maven-install-plugin:3.1.1:help].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat 10.1.30.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Lenovo/IdeaProjects/CurrencyExchangeKotlin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ],
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "kotlin"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Lenovo\IdeaProjects\CurrencyExchangeKotlin\src\main\resources\webapp\WEB-INF" />
       <recent name="C:\Users\Lenovo\IdeaProjects\CurrencyExchangeKotlin\src\main\resources\webapp" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="main.kotlin.currencyexchange.controllers" />
       <recent name="main.kotlin.currencyexchange.data.entities" />
       <recent name="main.kotlin.currencyexchange.data.dao" />
       <recent name="main.kotlin.currencyexchange.model" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.30">
+    <configuration name="All in currenciesRequests" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http">
+      <method v="2" />
+    </configuration>
+    <configuration name="currenciesRequests | All currencies" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" requestIdentifier="All currencies" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="currenciesRequests | Test USD currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="2" requestIdentifier="Test USD currency" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="currenciesRequests | Test empty /currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="4" requestIdentifier="Test empty /currency" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="currenciesRequests | Test non-existing currency" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/test/http/currenciesRequests.http" index="3" requestIdentifier="Test non-existing currency" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="Tomcat 10.1.30" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.30" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER" value="false" />
       <deployment>
@@ -205,6 +220,15 @@
         </option>
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.All in currenciesRequests" />
+        <item itemvalue="HTTP Request.currenciesRequests | Test empty /currency" />
+        <item itemvalue="HTTP Request.currenciesRequests | Test non-existing currency" />
+        <item itemvalue="HTTP Request.currenciesRequests | Test USD currency" />
+        <item itemvalue="HTTP Request.currenciesRequests | All currencies" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -258,7 +282,9 @@
       <workItem from="1728495947863" duration="2000" />
       <workItem from="1728495965207" duration="4486000" />
       <workItem from="1728567190364" duration="1718000" />
-      <workItem from="1728595223562" duration="298000" />
+      <workItem from="1728595223562" duration="4616000" />
+      <workItem from="1728668065112" duration="7958000" />
+      <workItem from="1728726592499" duration="5998000" />
     </task>
     <task id="LOCAL-00001" summary="1st commit">
       <option name="closed" value="true" />
@@ -268,7 +294,79 @@
       <option name="project" value="LOCAL" />
       <updated>1727112880750</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: add maven file and other xml files">
+      <option name="closed" value="true" />
+      <created>1728595732754</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728595732757</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: add Entity and Currency classes">
+      <option name="closed" value="true" />
+      <created>1728595808325</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728595808325</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: add DAO classes">
+      <option name="closed" value="true" />
+      <created>1728595822042</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728595822042</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix: delete unused classes">
+      <option name="closed" value="true" />
+      <created>1728595888346</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728595888346</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: added currencyDAO">
+      <option name="closed" value="true" />
+      <created>1728732273615</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732273615</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: db connector for DAO classes">
+      <option name="closed" value="true" />
+      <created>1728732325370</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732325370</updated>
+    </task>
+    <task id="LOCAL-00008" summary="refactor: deleted Entity.kt">
+      <option name="closed" value="true" />
+      <created>1728732470820</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732470820</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: added /currency/* servlets and 200,404,400 http codes">
+      <option name="closed" value="true" />
+      <created>1728732524134</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732524134</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: currencyDAO getAll and getByCode methods">
+      <option name="closed" value="true" />
+      <created>1728732600701</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1728732600701</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +386,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1st commit" />
     <MESSAGE value="refactor: created new project" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: created new project" />
+    <MESSAGE value="feat: add maven file and other xml files" />
+    <MESSAGE value="feat: add Entity and Currency classes" />
+    <MESSAGE value="feat: add DAO classes" />
+    <MESSAGE value="fix: delete unused classes" />
+    <MESSAGE value="feat: added currencyDAO" />
+    <MESSAGE value="feat: db connector for DAO classes" />
+    <MESSAGE value="refactor: deleted Entity.kt" />
+    <MESSAGE value="feat: added /currency/* servlets and 200,404,400 http codes" />
+    <MESSAGE value="feat: currencyDAO getAll and getByCode methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: currencyDAO getAll and getByCode methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
