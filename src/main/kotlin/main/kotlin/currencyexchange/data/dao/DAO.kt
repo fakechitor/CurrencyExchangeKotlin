@@ -1,10 +1,9 @@
 package main.kotlin.currencyexchange.data.dao
 
-import main.kotlin.currencyexchange.data.entities.Entity
+import main.kotlin.currencyexchange.data.entities.Currency
 
 interface DAO {
-    fun get(id : Int) : Entity
-    fun getAll() : List<Entity>
-    fun save(entity: Entity)
-    
+    fun getByCode(code : String) : Currency?
+    fun getAll() : List<Currency>
+    fun save(currency: Currency)
 }
