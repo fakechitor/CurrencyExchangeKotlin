@@ -5,4 +5,4 @@ class Currency(
     val currencyCode : String,
     val name : String,
     val sign: String,
-) : Entity()
+)
