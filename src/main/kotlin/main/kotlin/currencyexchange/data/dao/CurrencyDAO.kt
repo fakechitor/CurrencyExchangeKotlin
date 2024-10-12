@@ -64,8 +64,9 @@ class CurrencyDAO() : DAO{
         return currencyList
     }
 
-    override fun save(Currency: Currency) {
+    override fun save(currency: Currency) {
         TODO("Not yet implemented")
-
     }
+
+
 }
