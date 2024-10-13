@@ -2,6 +2,8 @@ package main.kotlin.currencyexchange.data.dao
 
 import main.kotlin.currencyexchange.data.database.DatabaseConnector
 import main.kotlin.currencyexchange.data.entities.Currency
+import main.kotlin.currencyexchange.dto.CurrencyDTO
+import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import java.sql.Connection
 import java.sql.SQLException
 
@@ -64,19 +66,27 @@ class CurrencyDAO() : DAO{
         return currencyList
     }
 
-    override fun save(currency: Currency) {
-        val sql = "INSERT INTO Currencies (Code, FullName, Sign) VALUES (?, ?, ?)"
+    override fun save(currencyDTO: CurrencyDTO) {
         try {
+            isCurrencyExist(currencyDTO)
+            val sql = "INSERT INTO Currencies (Code, FullName, Sign) VALUES (?, ?, ?)"
             connector.getConnection()?.use { connection ->
                 connection.prepareStatement(sql).use { ps ->
-                    ps.setString(1, currency.currencyCode)
-                    ps.setString(2, currency.name)
-                    ps.setString(3, currency.sign)
-                    ps.executeUpdate() > 0
+                    ps.setString(1, currencyDTO.currencyCode)
+                    ps.setString(2, currencyDTO.name)
+                    ps.setString(3, currencyDTO.sign)
+                    ps.executeUpdate()
                 }
             }
         } catch (e: SQLException) {
             e.printStackTrace()
+        }
+    }
+
+    private fun isCurrencyExist(currencyDTO: CurrencyDTO){
+        val currency = getByCode(currencyDTO.currencyCode!!)
+        if (currency != null){
+            throw CurrencyAlreadyExistsException()
         }
     }
 
