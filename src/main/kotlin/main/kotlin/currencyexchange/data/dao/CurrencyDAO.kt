@@ -20,6 +20,7 @@ class CurrencyDAO() : DAO{
         }
         catch (e: SQLException) {
             e.printStackTrace()
+            throw e
         }
         return currency
 
@@ -45,6 +46,7 @@ class CurrencyDAO() : DAO{
     override fun getAll(): MutableList<Currency> {
         val currencyList : MutableList<Currency> = mutableListOf()
         val query = ("SELECT * FROM Currencies")
+        // TODO() try to delete try-catch
         try{
             connector.getConnection().use { connection ->
                 connection!!.createStatement().use { statement ->
@@ -62,6 +64,7 @@ class CurrencyDAO() : DAO{
         }
         catch (e: SQLException) {
             e.printStackTrace()
+            throw e
         }
         return currencyList
     }
@@ -80,6 +83,7 @@ class CurrencyDAO() : DAO{
             }
         } catch (e: SQLException) {
             e.printStackTrace()
+            throw e
         }
     }
 

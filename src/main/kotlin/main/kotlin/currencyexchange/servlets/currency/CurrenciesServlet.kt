@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.servlets
+package main.kotlin.currencyexchange.servlets.currency
 
 import com.google.gson.Gson
 import jakarta.servlet.annotation.WebServlet
@@ -9,7 +9,6 @@ import main.kotlin.currencyexchange.data.dao.CurrencyDAO
 import main.kotlin.currencyexchange.data.entities.Currency
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
-import kotlin.math.sign
 
 
 @WebServlet(name = "getCurrencies", value = ["/currencies"])
