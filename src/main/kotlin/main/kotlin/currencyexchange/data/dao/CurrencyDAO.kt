@@ -47,7 +47,7 @@ class CurrencyDAO() : DAO{
         val currencyList : MutableList<Currency> = mutableListOf()
         val query = ("SELECT * FROM Currencies")
         // TODO() try to delete try-catch
-        try{
+
             connector.getConnection().use { connection ->
                 connection!!.createStatement().use { statement ->
                     val rs = statement.executeQuery(query)
@@ -61,11 +61,7 @@ class CurrencyDAO() : DAO{
                     rs.close()
                 }
             }
-        }
-        catch (e: SQLException) {
-            e.printStackTrace()
-            throw e
-        }
+
         return currencyList
     }
 
