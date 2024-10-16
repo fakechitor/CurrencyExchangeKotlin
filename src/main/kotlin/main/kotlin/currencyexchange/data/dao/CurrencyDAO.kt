@@ -43,6 +43,7 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
             }
         }
         return currencyDTO
+
     }
 
     override fun getById(id : Int) : Currency {

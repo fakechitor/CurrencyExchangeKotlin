@@ -5,22 +5,22 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import main.kotlin.currencyexchange.data.dao.CurrencyDAO
 import main.kotlin.currencyexchange.data.entities.Currency
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
+import main.kotlin.currencyexchange.service.CurrencyService
 
 
 @WebServlet(name = "getCurrencies", value = ["/currencies"])
 class CurrenciesServlet : HttpServlet() {
     private val gson = Gson()
-    private val currencyDAO  = CurrencyDAO()
+    private val currencyService = CurrencyService()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
             resp.contentType = "application/json"
             val printWriter = resp.writer
-            val currencies: MutableList<Currency> = currencyDAO.getAll()
+            val currencies: MutableList<Currency> = currencyService.getAll().toMutableList()
             var responseData: List<CurrencyDTO> = listOf()
             while (currencies.isNotEmpty()) {
                 val currency = currencies[0]
@@ -50,7 +50,7 @@ class CurrenciesServlet : HttpServlet() {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
             }
             val currencyDTO = CurrencyDTO(null, currencyCode, name, sign)
-            currencyDAO.save(currencyDTO)
+            currencyService.save(currencyDTO)
             resp.status = HttpServletResponse.SC_CREATED
         }
         catch (e: CurrencyAlreadyExistsException){

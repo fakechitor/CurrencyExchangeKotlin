@@ -7,20 +7,21 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.data.dao.CurrencyDAO
 import main.kotlin.currencyexchange.dto.CurrencyDTO
+import main.kotlin.currencyexchange.service.CurrencyService
 
 @WebServlet(name = "getCurrency", value = ["/currency/*"])
 class CurrencyServlet : HttpServlet() {
-    private val currencyDAO = CurrencyDAO()
+    private val currencyService = CurrencyService()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         val pathInfo = req.pathInfo?.split("/") ?: listOf()
         val code = if (pathInfo.size > 1) pathInfo[1] else ""
         try{
             if (code != "") {
-                val currency = currencyDAO.getByCode(code)
+                val currency = currencyService.getByCode(code)
                 resp.contentType = "application/json"
                 val printWriter = resp.writer
-                if (currency != null) {
+                if (currency.id != 0) {
                     val currencyDTO = CurrencyDTO(
                         id = currency.id,
                         currencyCode = currency.currencyCode,
