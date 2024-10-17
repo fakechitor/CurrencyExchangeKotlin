@@ -16,7 +16,7 @@ object ExchangeRateMapper {
         return ExchangeRate(
             id = eDTO.id ?: 0,
             baseCurrency = eDTO.baseCurrency ?: throw IllegalArgumentException(),
-            targetCurrency = eDTO.baseCurrency ?: throw IllegalArgumentException(),
+            targetCurrency = eDTO.targetCurrency ?: throw IllegalArgumentException(),
             rate = eDTO.rate ?: 0.0,
         )
     }
