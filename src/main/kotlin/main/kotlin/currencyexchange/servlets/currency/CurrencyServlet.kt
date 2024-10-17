@@ -5,12 +5,12 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import main.kotlin.currencyexchange.data.dao.CurrencyDAO
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.service.CurrencyService
 
 @WebServlet(name = "getCurrency", value = ["/currency/*"])
 class CurrencyServlet : HttpServlet() {
+    private val gson = Gson()
     private val currencyService = CurrencyService()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
@@ -28,7 +28,7 @@ class CurrencyServlet : HttpServlet() {
                         name = currency.name,
                         sign = currency.sign,
                     )
-                    val jsonResponse = Gson().toJson(currencyDTO)
+                    val jsonResponse = gson.toJson(currencyDTO)
                     printWriter.write(jsonResponse)
                 } else {
                     resp.status = HttpServletResponse.SC_NOT_FOUND
