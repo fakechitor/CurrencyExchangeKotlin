@@ -19,7 +19,7 @@ class ExchangeService {
         return exchangeRateDAO.getAll()
     }
 
-    fun save(exchange: ExchangeRateDTO) {
+    fun save(exchange: ExchangeRateDTO) : ExchangeRate {
         return exchangeRateDAO.save(exchange)
     }
 }

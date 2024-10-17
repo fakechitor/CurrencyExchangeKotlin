@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import main.kotlin.currencyexchange.dto.ExchangeRateDTO
 import main.kotlin.currencyexchange.service.ExchangeService
 
 @WebServlet(name = "exchangeRate", value = ["/exchangeRate/*"])
@@ -21,13 +20,7 @@ class ExchangeRateServlet : HttpServlet() {
                 val exchangeRate = exchangeService.getByCode(connectedCodes)
                 resp.contentType = "application/json"
                 val printWriter = resp.writer
-                val exchangeRateDTO = ExchangeRateDTO(
-                    id = exchangeRate.id,
-                    baseCurrency = exchangeRate.baseCurrency,
-                    targetCurrency = exchangeRate.targetCurrency,
-                    rate = exchangeRate.rate,
-                )
-                val jsonResponse = gson.toJson(exchangeRateDTO)
+                val jsonResponse = gson.toJson(exchangeRate)
                 printWriter.write(jsonResponse)
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST

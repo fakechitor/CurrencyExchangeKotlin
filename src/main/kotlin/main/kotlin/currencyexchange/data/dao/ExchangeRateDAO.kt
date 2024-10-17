@@ -75,7 +75,7 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
         return exchangeRatesList
     }
 
-    override fun save(item: ExchangeRateDTO) {
+    override fun save(item: ExchangeRateDTO) : ExchangeRate {
         TODO("Not yet implemented")
     }
 

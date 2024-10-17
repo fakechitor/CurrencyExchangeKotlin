@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import main.kotlin.currencyexchange.dto.ExchangeRateDTO
+import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import main.kotlin.currencyexchange.service.ExchangeService
 
 @WebServlet(name = "ExchangeRatesServlet", value = ["/exchangeRates"])
@@ -17,20 +17,8 @@ class ExchangeRatesServlet : HttpServlet() {
         try {
             resp.contentType = "application/json"
             val printWriter = resp.writer
-            val exchangeRates = exchangeService.getAll().toMutableList()
-            var responseData: List<ExchangeRateDTO> = listOf()
-            while (exchangeRates.isNotEmpty()) {
-                val exchangeRate = exchangeRates[0]
-                exchangeRates.remove(exchangeRate)
-                val exchangeRateDTO = ExchangeRateDTO(
-                    id = exchangeRate.id,
-                    baseCurrency = exchangeRate.baseCurrency,
-                    targetCurrency = exchangeRate.targetCurrency,
-                    rate = exchangeRate.rate,
-                )
-                responseData = responseData.plus(exchangeRateDTO)
-            }
-            val jsonResponse = gson.toJson(responseData)
+            val exchangeRates = exchangeService.getAll()
+            val jsonResponse = gson.toJson(exchangeRates)
             printWriter.write(jsonResponse)
         }
         catch (e: Exception) {
@@ -38,7 +26,18 @@ class ExchangeRatesServlet : HttpServlet() {
         }
     }
 
-    override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
+    override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
+        try {
+            val baseCurrencyCode = req.getParameter("baseCurrencyCode")
+            val targetCurrencyCode = req.getParameter("targetCurrencyCode")
+            val rate  = req.getParameter("rate")
+            if (baseCurrencyCode.isNullOrEmpty() || targetCurrencyCode.isNullOrEmpty() || rate.isNullOrEmpty()) {
+                resp.status = HttpServletResponse.SC_BAD_REQUEST
+            }
 
+        }
+        catch (e: CurrencyAlreadyExistsException) {
+            resp.status = HttpServletResponse.SC_CONFLICT
+        }
     }
 }
