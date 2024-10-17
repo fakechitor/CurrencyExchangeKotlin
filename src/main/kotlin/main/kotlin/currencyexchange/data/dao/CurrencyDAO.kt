@@ -98,7 +98,8 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
         return currencyList
     }
 
-    override fun save(item: CurrencyDTO) {
+    override fun save(item: CurrencyDTO) : Currency {
+        var currency = Currency(0,"","","")
         try {
             isCurrencyExist(item)
             val sql = "INSERT INTO Currencies (Code, FullName, Sign) VALUES (?, ?, ?)"
@@ -108,12 +109,14 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
                     ps.setString(2, item.name)
                     ps.setString(3, item.sign)
                     ps.executeUpdate()
+                    currency = getByCode(item.currencyCode!!)
                 }
             }
         } catch (e: SQLException) {
             e.printStackTrace()
             throw e
         }
+        return currency
     }
 
     private fun isCurrencyExist(currencyDTO: CurrencyDTO){

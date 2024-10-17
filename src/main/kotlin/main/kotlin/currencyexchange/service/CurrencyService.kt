@@ -16,7 +16,7 @@ class CurrencyService {
     fun getAll() : List<Currency> {
         return currencyDAO.getAll()
     }
-    fun save(currencyDTO: CurrencyDTO){
-        currencyDAO.save(currencyDTO)
+    fun save(currencyDTO: CurrencyDTO) : Currency{
+        return currencyDAO.save(currencyDTO)
     }
 }

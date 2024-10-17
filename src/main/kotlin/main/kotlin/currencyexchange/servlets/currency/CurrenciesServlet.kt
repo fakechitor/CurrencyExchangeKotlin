@@ -20,20 +20,8 @@ class CurrenciesServlet : HttpServlet() {
         try {
             resp.contentType = "application/json"
             val printWriter = resp.writer
-            val currencies: MutableList<Currency> = currencyService.getAll().toMutableList()
-            var responseData: List<CurrencyDTO> = listOf()
-            while (currencies.isNotEmpty()) {
-                val currency = currencies[0]
-                currencies.remove(currency)
-                val currencyDTO = CurrencyDTO(
-                    id = currency.id,
-                    currencyCode = currency.currencyCode,
-                    name = currency.name,
-                    sign = currency.sign,
-                )
-                responseData = responseData.plus(currencyDTO)
-            }
-            val jsonResponse = gson.toJson(responseData)
+            val currencies: List<Currency> = currencyService.getAll()
+            val jsonResponse = gson.toJson(currencies)
             printWriter.write(jsonResponse)
         }
         catch (e: Exception) {
@@ -43,6 +31,7 @@ class CurrenciesServlet : HttpServlet() {
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
         try{
+            resp.contentType = "application/json"
             val currencyCode = req.getParameter("code")
             val name = req.getParameter("name")
             val sign = req.getParameter("sign")
@@ -50,7 +39,10 @@ class CurrenciesServlet : HttpServlet() {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
             }
             val currencyDTO = CurrencyDTO(null, currencyCode, name, sign)
-            currencyService.save(currencyDTO)
+            val response = currencyService.save(currencyDTO)
+            val printWriter = resp.writer
+            val jsonResponse = gson.toJson(response)
+            printWriter.write(jsonResponse)
             resp.status = HttpServletResponse.SC_CREATED
         }
         catch (e: CurrencyAlreadyExistsException){

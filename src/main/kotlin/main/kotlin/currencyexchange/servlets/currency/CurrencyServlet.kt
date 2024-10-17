@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.service.CurrencyService
 
 @WebServlet(name = "getCurrency", value = ["/currency/*"])
@@ -22,13 +21,7 @@ class CurrencyServlet : HttpServlet() {
                 resp.contentType = "application/json"
                 val printWriter = resp.writer
                 if (currency.id != 0) {
-                    val currencyDTO = CurrencyDTO(
-                        id = currency.id,
-                        currencyCode = currency.currencyCode,
-                        name = currency.name,
-                        sign = currency.sign,
-                    )
-                    val jsonResponse = gson.toJson(currencyDTO)
+                    val jsonResponse = gson.toJson(currency)
                     printWriter.write(jsonResponse)
                 } else {
                     resp.status = HttpServletResponse.SC_NOT_FOUND
