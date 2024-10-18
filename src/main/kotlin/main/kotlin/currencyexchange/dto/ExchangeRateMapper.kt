@@ -12,11 +12,14 @@ object ExchangeRateMapper {
         )
     }
 
-    fun toModel(eDTO: ExchangeRateDTO) : ExchangeRate {
+    fun toModel(eDTO: ExchangeRateDTO): ExchangeRate? {
+        if (eDTO.baseCurrency == null || eDTO.targetCurrency == null) {
+            return null
+        }
         return ExchangeRate(
             id = eDTO.id ?: 0,
-            baseCurrency = eDTO.baseCurrency ?: throw IllegalArgumentException(),
-            targetCurrency = eDTO.targetCurrency ?: throw IllegalArgumentException(),
+            baseCurrency = eDTO.baseCurrency,
+            targetCurrency = eDTO.targetCurrency,
             rate = eDTO.rate ?: 0.0,
         )
     }

@@ -12,7 +12,11 @@ class ExchangeService {
     }
 
     fun getByCode(code : String) : ExchangeRate {
-        return exchangeRateDAO.getByCode(code)
+        val exchangeRate = exchangeRateDAO.getByCode(code)
+        if (exchangeRate.id == 0) {
+            throw IllegalArgumentException()
+        }
+        return exchangeRate
     }
 
     fun getAll() : List<ExchangeRate> {

@@ -22,6 +22,7 @@ class ExchangeRateServlet : HttpServlet() {
                 val printWriter = resp.writer
                 val jsonResponse = gson.toJson(exchangeRate)
                 printWriter.write(jsonResponse)
+
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
             }
