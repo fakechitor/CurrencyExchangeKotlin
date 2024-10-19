@@ -26,6 +26,9 @@ class ExchangeRatesServlet : HttpServlet() {
         }
         catch (e: Exception) {
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Внутренняя ошибка сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 
@@ -48,12 +51,21 @@ class ExchangeRatesServlet : HttpServlet() {
             resp.status = HttpServletResponse.SC_CREATED
         } catch (e: IllegalArgumentException) {
             resp.status = HttpServletResponse.SC_NOT_FOUND
+            val answer = mapOf("message" to "Валюта не найдена")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
         catch (e: CurrencyAlreadyExistsException) {
             resp.status = HttpServletResponse.SC_CONFLICT
+            val answer = mapOf("message" to "Обменный курс уже существует")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         } catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Внутренняя ошибка сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 }

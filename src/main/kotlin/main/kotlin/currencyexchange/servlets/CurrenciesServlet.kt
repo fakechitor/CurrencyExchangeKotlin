@@ -26,6 +26,9 @@ class CurrenciesServlet : HttpServlet() {
         }
         catch (e: Exception) {
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Ошибка внутреннего сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 
@@ -37,6 +40,9 @@ class CurrenciesServlet : HttpServlet() {
             val sign = req.getParameter("sign")
             if (currencyCode.isNullOrEmpty() || name.isNullOrEmpty() || sign.isNullOrEmpty()) {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
+                val answer = mapOf("message" to "Некорректный ввод")
+                val jsonResponse = gson.toJson(answer)
+                resp.writer.write(jsonResponse)
             }
             val currencyDTO = CurrencyDTO(null, currencyCode, name, sign)
             val response = currencyService.save(currencyDTO)
@@ -47,10 +53,16 @@ class CurrenciesServlet : HttpServlet() {
         }
         catch (e: CurrencyAlreadyExistsException){
             resp.status = HttpServletResponse.SC_CONFLICT
+            val answer = mapOf("message" to "Валюта уже существует")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
         catch(e : Exception){
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Ошибка внутреннего сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
 
     }

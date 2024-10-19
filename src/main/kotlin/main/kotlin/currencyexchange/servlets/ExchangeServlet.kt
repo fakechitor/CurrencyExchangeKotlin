@@ -13,9 +13,8 @@ class ExchangeServlet : HttpServlet() {
     private val exchangeService = ExchangeService()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         try {
-            resp.contentType = "application/json"
-            resp.writer
             val baseCurrencyCode = req.getParameter("from")
             val targetCurrencyCode = req.getParameter("to")
             val amount = req.getParameter("amount")
@@ -27,10 +26,16 @@ class ExchangeServlet : HttpServlet() {
                 resp.status = HttpServletResponse.SC_OK
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
+                val answer = mapOf("message" to "Валюта не найдена")
+                val jsonResponse = gson.toJson(answer)
+                resp.writer.write(jsonResponse)
             }
         } catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Ошибка внутреннего сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 }

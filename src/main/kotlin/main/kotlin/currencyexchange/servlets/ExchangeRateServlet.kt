@@ -32,14 +32,23 @@ class ExchangeRateServlet : HttpServlet() {
 
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
+                val answer = mapOf("message" to "Некорректный ввод")
+                val jsonResponse = gson.toJson(answer)
+                resp.writer.write(jsonResponse)
             }
         }
         catch (e: IllegalArgumentException) {
             resp.status = HttpServletResponse.SC_NOT_FOUND
+            val answer = mapOf("message" to "Валюта не найдена")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
         catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Ошибка внутреннего сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 
@@ -55,10 +64,16 @@ class ExchangeRateServlet : HttpServlet() {
                 resp.status = HttpServletResponse.SC_OK
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
+                val answer = mapOf("message" to "Валюта не найдена")
+                val jsonResponse = gson.toJson(answer)
+                resp.writer.write(jsonResponse)
             }
         } catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Ошибка внутреннего сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 }

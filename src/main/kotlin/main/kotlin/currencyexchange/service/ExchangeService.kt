@@ -5,6 +5,7 @@ import main.kotlin.currencyexchange.data.dao.ExchangeRateDAO
 import main.kotlin.currencyexchange.data.entities.ExchangeRate
 import main.kotlin.currencyexchange.data.entities.ExchangeTransaction
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
+import kotlin.math.pow
 
 class ExchangeService {
     private val exchangeRateDAO = ExchangeRateDAO()
@@ -38,24 +39,30 @@ class ExchangeService {
             baseCurrency = currencyDAO.getByCode(baseCurrCode),
             targetCurrency = currencyDAO.getByCode(targetCurrCode),
             rate = 0.0,
-            amount = amount,
+            amount = amount.roundTo(2),
             convertedAmount = 0.0,
         )
         if (exchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).id != 0) {
             val exchangeRate = exchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).rate
-            exchangeTransaction.rate = exchangeRate
-            exchangeTransaction.convertedAmount = amount * exchangeRate
+            exchangeTransaction.rate = exchangeRate.roundTo(2)
+            exchangeTransaction.convertedAmount = (amount * exchangeRate).roundTo(2)
         } else if (exchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).id != 0) {
             val exchangeRate = 1 / exchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).rate
-            exchangeTransaction.rate = exchangeRate
-            exchangeTransaction.convertedAmount = amount * exchangeRate
+            exchangeTransaction.rate = exchangeRate.roundTo(2)
+            exchangeTransaction.convertedAmount = (amount * exchangeRate).roundTo(2)
         } else if (exchangeRateDAO.getByCode("USD$baseCurrCode").id != 0 && exchangeRateDAO.getByCode("USD$targetCurrCode").id != 0) {
             val USDToBaseCurr = exchangeRateDAO.getByCode("USD$baseCurrCode").rate
             val USDToTargetCurr = exchangeRateDAO.getByCode("USD$targetCurrCode").rate
-            val exchangeRate = USDToTargetCurr / USDToBaseCurr
+            val exchangeRate = (USDToTargetCurr / USDToBaseCurr).roundTo(2)
             exchangeTransaction.rate = exchangeRate
-            exchangeTransaction.convertedAmount = amount * exchangeRate
+            exchangeTransaction.convertedAmount = (amount * exchangeRate).roundTo(2)
         }
         return exchangeTransaction
     }
+
+    private fun Double.roundTo(decimals: Int): Double {
+        val factor = 10.0.pow(decimals)
+        return (Math.round(this * factor) / factor)
+    }
+
 }

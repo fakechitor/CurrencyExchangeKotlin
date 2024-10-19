@@ -22,16 +22,26 @@ class CurrencyServlet : HttpServlet() {
                 val printWriter = resp.writer
                 if (currency.id != 0) {
                     val jsonResponse = gson.toJson(currency)
+                    resp.status = HttpServletResponse.SC_OK
                     printWriter.write(jsonResponse)
                 } else {
                     resp.status = HttpServletResponse.SC_NOT_FOUND
+                    val answer = mapOf("message" to "Неверный ввод")
+                    val jsonResponse = gson.toJson(answer)
+                    resp.writer.write(jsonResponse)
                 }
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
+                val answer = mapOf("message" to "Валюта не найдена")
+                val jsonResponse = gson.toJson(answer)
+                resp.writer.write(jsonResponse)
             }
         }
         catch (e: Exception){
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            val answer = mapOf("message" to "Ошибка внутреннего сервера")
+            val jsonResponse = gson.toJson(answer)
+            resp.writer.write(jsonResponse)
         }
     }
 
