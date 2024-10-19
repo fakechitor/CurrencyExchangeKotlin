@@ -1,9 +1,11 @@
 package main.kotlin.currencyexchange.data.entities
 
+import java.math.BigDecimal
+
 class ExchangeTransaction(
     val baseCurrency: Currency,
     val targetCurrency: Currency,
-    var rate: Double,
-    val amount: Double,
-    var convertedAmount: Double,
+    var rate: BigDecimal,
+    val amount: BigDecimal,
+    var convertedAmount: BigDecimal,
 )
