@@ -26,4 +26,8 @@ class ExchangeService {
     fun save(exchange: ExchangeRateDTO) : ExchangeRate {
         return exchangeRateDAO.save(exchange)
     }
+
+    fun patchRate(code: String, rate: Double): ExchangeRate {
+        return exchangeRateDAO.patchData(code, rate)
+    }
 }

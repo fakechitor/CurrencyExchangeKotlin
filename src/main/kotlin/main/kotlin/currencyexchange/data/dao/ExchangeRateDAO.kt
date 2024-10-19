@@ -19,10 +19,8 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
         try{
             connector.getConnection().use { connection ->
                 exchangeRate = mapper.toModel(getByCode(code, connection))
-
             }
-        }
-        catch (e: SQLException) {
+        } catch (e: SQLException) {
             e.printStackTrace()
             throw e
         }
@@ -107,6 +105,18 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
             e.printStackTrace()
         }
         return exchangeRate
+    }
+    fun patchData(code: String, rate: Double): ExchangeRate {
+        val query = "UPDATE ExchangeRates SET rate = ? WHERE id=?"
+        connector.getConnection()?.use { conn ->
+            conn.prepareStatement(query).use { ps ->
+                val id = getByCode(code).id
+                ps.setDouble(1, rate)
+                ps.setInt(2, id)
+                ps.executeUpdate()
+            }
+        }
+        return getByCode(code)
     }
 
     private fun getCodesFromDTO(exchangeRateDTO: ExchangeRateDTO): String {
