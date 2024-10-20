@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.data.dao
+package main.kotlin.currencyexchange.dao
 
 import main.kotlin.currencyexchange.data.database.DatabaseConnector
 import main.kotlin.currencyexchange.data.entities.Currency
@@ -6,6 +6,7 @@ import main.kotlin.currencyexchange.data.entities.ExchangeRate
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
 import main.kotlin.currencyexchange.dto.ExchangeRateMapper
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
+import main.kotlin.currencyexchange.utils.Utils
 import java.sql.Connection
 import java.sql.SQLException
 
@@ -13,6 +14,7 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
     private val connector = DatabaseConnector()
     private val mapper = ExchangeRateMapper
     private val currencyDAO = CurrencyDAO()
+    private val utils = Utils()
 
     override fun getByCode(code: String): ExchangeRate {
         var exchangeRate: ExchangeRate?
@@ -30,7 +32,7 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
         return ExchangeRate(0, Currency(0, "", "", ""), Currency(0, "", "", ""), 0.0)
     }
     private fun getByCode(code: String, connection: Connection?) : ExchangeRateDTO {
-        val codes = splitCurrencyCodes(code)
+        val codes = utils.splitCurrencyCodes(code)
         val targetId = currencyDAO.getByCode(codes[0]).id
         val baseId = currencyDAO.getByCode(codes[1]).id
         val sql = "SELECT * FROM ExchangeRates WHERE BaseCurrencyId=? and TargetCurrencyId=?"
@@ -49,14 +51,6 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
             }
         }
         return exchangeRateDTO
-    }
-
-    private fun splitCurrencyCodes(code: String): List<String> {
-        return listOf(code.substring(0,3), code.substring(3))
-    }
-
-    override fun getById(id: Int): ExchangeRate {
-        TODO("Not yet implemented")
     }
 
     override fun getAll(): MutableList<ExchangeRate> {
@@ -106,6 +100,7 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
         }
         return exchangeRate
     }
+
     fun patchData(code: String, rate: Double): ExchangeRate {
         val query = "UPDATE ExchangeRates SET rate = ? WHERE id=?"
         connector.getConnection()?.use { conn ->
@@ -131,5 +126,4 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
             throw CurrencyAlreadyExistsException()
         }
     }
-
 }

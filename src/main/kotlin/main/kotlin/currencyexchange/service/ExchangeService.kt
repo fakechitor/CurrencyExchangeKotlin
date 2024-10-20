@@ -1,7 +1,7 @@
 package main.kotlin.currencyexchange.service
 
-import main.kotlin.currencyexchange.data.dao.CurrencyDAO
-import main.kotlin.currencyexchange.data.dao.ExchangeRateDAO
+import main.kotlin.currencyexchange.dao.CurrencyDAO
+import main.kotlin.currencyexchange.dao.ExchangeRateDAO
 import main.kotlin.currencyexchange.data.entities.ExchangeRate
 import main.kotlin.currencyexchange.data.entities.ExchangeTransaction
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO

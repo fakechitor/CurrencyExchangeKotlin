@@ -1,6 +1,6 @@
 package main.kotlin.currencyexchange.service
 
-import main.kotlin.currencyexchange.data.dao.CurrencyDAO
+import main.kotlin.currencyexchange.dao.CurrencyDAO
 import main.kotlin.currencyexchange.data.entities.Currency
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 

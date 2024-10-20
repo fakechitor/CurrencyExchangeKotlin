@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.data.dao
+package main.kotlin.currencyexchange.dao
 
 import main.kotlin.currencyexchange.data.database.DatabaseConnector
 import main.kotlin.currencyexchange.data.entities.Currency
@@ -46,7 +46,7 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
 
     }
 
-    override fun getById(id : Int) : Currency {
+    fun getById(id : Int) : Currency {
         var currency : Currency
         try {
             connector.getConnection().use { connection ->
