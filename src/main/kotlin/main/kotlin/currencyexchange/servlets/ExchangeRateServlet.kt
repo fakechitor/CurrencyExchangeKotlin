@@ -6,11 +6,13 @@ import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.service.ExchangeService
+import main.kotlin.currencyexchange.utils.Utils
 
 @WebServlet(name = "exchangeRate", value = ["/exchangeRate/*"])
 class ExchangeRateServlet : HttpServlet() {
     private val exchangeService = ExchangeService()
     private val gson = Gson()
+    private val utils = Utils()
 
     override fun service(req: HttpServletRequest, resp: HttpServletResponse) {
         if (req.method.equals("PATCH", ignoreCase = true)) {
@@ -25,30 +27,23 @@ class ExchangeRateServlet : HttpServlet() {
         try {
             if (connectedCodes.length == 6) {
                 val exchangeRate = exchangeService.getByCode(connectedCodes)
-                resp.contentType = "application/json"
                 val printWriter = resp.writer
                 val jsonResponse = gson.toJson(exchangeRate)
                 printWriter.write(jsonResponse)
 
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                val answer = mapOf("message" to "Некорректный ввод")
-                val jsonResponse = gson.toJson(answer)
-                resp.writer.write(jsonResponse)
+                utils.printStatus("Некорректный ввод", resp)
             }
         }
         catch (e: IllegalArgumentException) {
             resp.status = HttpServletResponse.SC_NOT_FOUND
-            val answer = mapOf("message" to "Валюта не найдена")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Валюта не найдена", resp)
         }
         catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Ошибка внутреннего сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Ошибка внутреннего сервера",resp)
         }
     }
 
@@ -57,23 +52,18 @@ class ExchangeRateServlet : HttpServlet() {
         val connectedCodes = req.pathInfo.trim('/')
         try {
             if (connectedCodes.length == 6) {
-                resp.contentType = "application/json"
                 val exchangeRate = exchangeService.patchRate(connectedCodes, rate)
                 val responseJson = gson.toJson(exchangeRate)
                 resp.writer.write(responseJson)
                 resp.status = HttpServletResponse.SC_OK
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                val answer = mapOf("message" to "Валюта не найдена")
-                val jsonResponse = gson.toJson(answer)
-                resp.writer.write(jsonResponse)
+                utils.printStatus("Валюта не найдена",resp)
             }
         } catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Ошибка внутреннего сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Ошибка внутреннего сервера",resp)
         }
     }
 }

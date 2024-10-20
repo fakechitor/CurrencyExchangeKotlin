@@ -9,16 +9,17 @@ import main.kotlin.currencyexchange.data.entities.Currency
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import main.kotlin.currencyexchange.service.CurrencyService
+import main.kotlin.currencyexchange.utils.Utils
 
 
 @WebServlet(name = "getCurrencies", value = ["/currencies"])
 class CurrenciesServlet : HttpServlet() {
     private val gson = Gson()
     private val currencyService = CurrencyService()
+    private val utils = Utils()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
-            resp.contentType = "application/json"
             val printWriter = resp.writer
             val currencies: List<Currency> = currencyService.getAll()
             val jsonResponse = gson.toJson(currencies)
@@ -26,23 +27,18 @@ class CurrenciesServlet : HttpServlet() {
         }
         catch (e: Exception) {
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Ошибка внутреннего сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Ошибка внутреннего сервера",resp)
         }
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
         try{
-            resp.contentType = "application/json"
             val currencyCode = req.getParameter("code")
             val name = req.getParameter("name")
             val sign = req.getParameter("sign")
             if (currencyCode.isNullOrEmpty() || name.isNullOrEmpty() || sign.isNullOrEmpty()) {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                val answer = mapOf("message" to "Некорректный ввод")
-                val jsonResponse = gson.toJson(answer)
-                resp.writer.write(jsonResponse)
+                utils.printStatus("Некорректный ввод",resp)
             }
             val currencyDTO = CurrencyDTO(null, currencyCode, name, sign)
             val response = currencyService.save(currencyDTO)
@@ -53,16 +49,12 @@ class CurrenciesServlet : HttpServlet() {
         }
         catch (e: CurrencyAlreadyExistsException){
             resp.status = HttpServletResponse.SC_CONFLICT
-            val answer = mapOf("message" to "Валюта уже существует")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Валюта уже существует", resp)
         }
         catch(e : Exception){
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Ошибка внутреннего сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Ошибка внутреннего сервера",resp)
         }
 
     }

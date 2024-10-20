@@ -6,11 +6,13 @@ import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.service.CurrencyService
+import main.kotlin.currencyexchange.utils.Utils
 
 @WebServlet(name = "getCurrency", value = ["/currency/*"])
 class CurrencyServlet : HttpServlet() {
     private val gson = Gson()
     private val currencyService = CurrencyService()
+    private val utils = Utils()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         val pathInfo = req.pathInfo?.split("/") ?: listOf()
@@ -18,7 +20,6 @@ class CurrencyServlet : HttpServlet() {
         try{
             if (code != "") {
                 val currency = currencyService.getByCode(code)
-                resp.contentType = "application/json"
                 val printWriter = resp.writer
                 if (currency.id != 0) {
                     val jsonResponse = gson.toJson(currency)
@@ -26,22 +27,16 @@ class CurrencyServlet : HttpServlet() {
                     printWriter.write(jsonResponse)
                 } else {
                     resp.status = HttpServletResponse.SC_NOT_FOUND
-                    val answer = mapOf("message" to "Неверный ввод")
-                    val jsonResponse = gson.toJson(answer)
-                    resp.writer.write(jsonResponse)
+                    utils.printStatus("Некорректный ввод",resp)
                 }
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                val answer = mapOf("message" to "Валюта не найдена")
-                val jsonResponse = gson.toJson(answer)
-                resp.writer.write(jsonResponse)
+                utils.printStatus("Валюта не найдена",resp)
             }
         }
         catch (e: Exception){
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Ошибка внутреннего сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Ошибка внутреннего сервера",resp)
         }
     }
 

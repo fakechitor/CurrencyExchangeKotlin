@@ -9,16 +9,17 @@ import main.kotlin.currencyexchange.dto.ExchangeRateDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import main.kotlin.currencyexchange.service.CurrencyService
 import main.kotlin.currencyexchange.service.ExchangeService
+import main.kotlin.currencyexchange.utils.Utils
 
 @WebServlet(name = "ExchangeRatesServlet", value = ["/exchangeRates"])
 class ExchangeRatesServlet : HttpServlet() {
     private val gson = Gson()
     private val exchangeService = ExchangeService()
     private val currencyService = CurrencyService()
+    private val utils = Utils()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
-            resp.contentType = "application/json"
             val printWriter = resp.writer
             val exchangeRates = exchangeService.getAll()
             val jsonResponse = gson.toJson(exchangeRates)
@@ -26,20 +27,18 @@ class ExchangeRatesServlet : HttpServlet() {
         }
         catch (e: Exception) {
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Внутренняя ошибка сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Внутренняя ошибка сервера", resp)
         }
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
-            resp.contentType = "application/json"
             val baseCurrencyCode = req.getParameter("baseCurrencyCode")
             val targetCurrencyCode = req.getParameter("targetCurrencyCode")
             val rate = req.getParameter("rate").toDouble()
             if (baseCurrencyCode.isNullOrEmpty() || targetCurrencyCode.isNullOrEmpty() || rate <= 0) {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
+                utils.printStatus("Некорректный ввод",resp)
             }
             val baseCurrency = currencyService.getByCode(baseCurrencyCode)
             val targetCurrency = currencyService.getByCode(targetCurrencyCode)
@@ -51,21 +50,15 @@ class ExchangeRatesServlet : HttpServlet() {
             resp.status = HttpServletResponse.SC_CREATED
         } catch (e: IllegalArgumentException) {
             resp.status = HttpServletResponse.SC_NOT_FOUND
-            val answer = mapOf("message" to "Валюта не найдена")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Валюта не найдена",resp)
         }
         catch (e: CurrencyAlreadyExistsException) {
             resp.status = HttpServletResponse.SC_CONFLICT
-            val answer = mapOf("message" to "Обменный курс уже существует")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Обменный курс уже существует", resp)
         } catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Внутренняя ошибка сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Внутренняя ошибка сервера", resp)
         }
     }
 }

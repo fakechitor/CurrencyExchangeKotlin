@@ -6,11 +6,13 @@ import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.service.ExchangeService
+import main.kotlin.currencyexchange.utils.Utils
 
 @WebServlet(name = "exchange", value = ["/exchange"])
 class ExchangeServlet : HttpServlet() {
     private val gson = Gson()
     private val exchangeService = ExchangeService()
+    private val utils = Utils()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         resp.contentType = "application/json"
@@ -26,16 +28,12 @@ class ExchangeServlet : HttpServlet() {
                 resp.status = HttpServletResponse.SC_OK
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                val answer = mapOf("message" to "Валюта не найдена")
-                val jsonResponse = gson.toJson(answer)
-                resp.writer.write(jsonResponse)
+                utils.printStatus("Валюта не найдена",resp)
             }
         } catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            val answer = mapOf("message" to "Ошибка внутреннего сервера")
-            val jsonResponse = gson.toJson(answer)
-            resp.writer.write(jsonResponse)
+            utils.printStatus("Ошибка внутреннего сервера",resp)
         }
     }
 }
