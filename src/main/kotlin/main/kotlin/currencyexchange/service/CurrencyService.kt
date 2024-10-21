@@ -10,10 +10,10 @@ class CurrencyService {
     fun getByCode(code : String) : Currency {
         return currencyDAO.getByCode(code)
     }
-    fun getById(id : Int) : Currency {
+    fun getById(id : Int) : Currency? {
         return currencyDAO.getById(id)
     }
-    fun getAll() : List<Currency> {
+    fun getAll() : List<CurrencyDTO> {
         return currencyDAO.getAll()
     }
     fun save(currencyDTO: CurrencyDTO) : Currency{

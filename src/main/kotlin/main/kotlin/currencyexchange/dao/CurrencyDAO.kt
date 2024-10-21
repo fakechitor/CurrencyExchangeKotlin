@@ -46,8 +46,8 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
 
     }
 
-    fun getById(id : Int) : Currency {
-        var currency : Currency
+    fun getById(id : Int) : Currency? {
+        var currency : Currency?
         try {
             connector.getConnection().use { connection ->
                 currency = getById(id,connection)
@@ -60,7 +60,7 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
         return currency
     }
 
-    private fun getById(currencyId : Int, connection: Connection?) : Currency {
+    private fun getById(currencyId : Int, connection: Connection?) : Currency? {
         val sql = "SELECT ID, Code, FullName, Sign FROM Currencies WHERE Id=?"
         var currency : Currency? = null
         connection?.prepareStatement(sql)?.use { ps ->
@@ -75,12 +75,12 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
                 }
             }
         }
-        return currency!!
+        return currency
 
     }
 
-    override fun getAll(): MutableList<Currency> {
-        val currencyList : MutableList<Currency> = mutableListOf()
+    override fun getAll(): MutableList<CurrencyDTO> {
+        val currencyList : MutableList<CurrencyDTO> = mutableListOf()
         val query = ("SELECT * FROM Currencies")
         connector.getConnection().use { connection ->
             connection!!.createStatement().use { statement ->
@@ -90,7 +90,7 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
                     val code = rs.getString(2)
                     val fullName = rs.getString(3)
                     val sign = rs.getString(4)
-                    currencyList.add(Currency(id, code, fullName, sign))
+                    currencyList.add(CurrencyDTO(id, code, fullName, sign))
                 }
                 rs.close()
             }

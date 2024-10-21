@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import main.kotlin.currencyexchange.data.entities.Currency
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import main.kotlin.currencyexchange.service.CurrencyService
@@ -21,7 +20,7 @@ class CurrenciesServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
             val printWriter = resp.writer
-            val currencies: List<Currency> = currencyService.getAll()
+            val currencies: List<CurrencyDTO> = currencyService.getAll()
             val jsonResponse = gson.toJson(currencies)
             printWriter.write(jsonResponse)
         }

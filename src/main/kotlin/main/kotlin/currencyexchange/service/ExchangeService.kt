@@ -20,7 +20,7 @@ class ExchangeService {
         return exchangeRate
     }
 
-    fun getAll() : List<ExchangeRate> {
+    fun getAll() : List<ExchangeRateDTO> {
         return exchangeRateDAO.getAll()
     }
 
@@ -45,19 +45,19 @@ class ExchangeService {
         )
         if (exchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).id != 0) {
             val exchangeRate = BigDecimal(exchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).rate)
-            exchangeTransaction.rate = exchangeRate.setScale(2, RoundingMode.HALF_UP)
+            exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.times(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         } else if (exchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).id != 0) {
             var exchangeRate = BigDecimal(exchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).rate)
             val a = BigDecimal("1")
             exchangeRate = a.divide(exchangeRate, 10, RoundingMode.HALF_UP)
-            exchangeTransaction.rate = exchangeRate.setScale(2, RoundingMode.HALF_UP)
+            exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.times(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         } else if (exchangeRateDAO.getByCode("USD$baseCurrCode").id != 0 && exchangeRateDAO.getByCode("USD$targetCurrCode").id != 0) {
             val USDToBaseCurr = BigDecimal(exchangeRateDAO.getByCode("USD$baseCurrCode").rate)
             val USDToTargetCurr = BigDecimal(exchangeRateDAO.getByCode("USD$targetCurrCode").rate)
             val exchangeRate = USDToTargetCurr.divide(USDToBaseCurr)
-            exchangeTransaction.rate = exchangeRate.setScale(2, RoundingMode.HALF_UP)
+            exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         }
         return exchangeTransaction

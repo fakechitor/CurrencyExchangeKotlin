@@ -21,17 +21,19 @@ class CurrencyServlet : HttpServlet() {
             if (code != "") {
                 val currency = currencyService.getByCode(code)
                 val printWriter = resp.writer
-                if (currency.id != 0) {
-                    val jsonResponse = gson.toJson(currency)
-                    resp.status = HttpServletResponse.SC_OK
-                    printWriter.write(jsonResponse)
-                } else {
-                    resp.status = HttpServletResponse.SC_NOT_FOUND
-                    utils.printStatus("Некорректный ввод",resp)
+                if (currency != null) {
+                    if (currency.id != 0) {
+                        val jsonResponse = gson.toJson(currency)
+                        resp.status = HttpServletResponse.SC_OK
+                        printWriter.write(jsonResponse)
+                    } else {
+                        resp.status = HttpServletResponse.SC_NOT_FOUND
+                        utils.printStatus("Валюта не найдена",resp)
+                    }
                 }
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                utils.printStatus("Валюта не найдена",resp)
+                utils.printStatus("Некорректный ввод",resp)
             }
         }
         catch (e: Exception){
