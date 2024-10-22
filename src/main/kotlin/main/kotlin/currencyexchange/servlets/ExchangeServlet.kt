@@ -17,8 +17,8 @@ class ExchangeServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         resp.contentType = "application/json"
         try {
-            val baseCurrencyCode = req.getParameter("from")
-            val targetCurrencyCode = req.getParameter("to")
+            val baseCurrencyCode = req.getParameter("from").uppercase()
+            val targetCurrencyCode = req.getParameter("to").uppercase()
             val amount = req.getParameter("amount")
             if (baseCurrencyCode.length == 3 && targetCurrencyCode.length == 3 && amount.toDouble() > 0.0) {
                 val exchangeData = listOf(baseCurrencyCode, targetCurrencyCode, amount)
@@ -28,9 +28,13 @@ class ExchangeServlet : HttpServlet() {
                 resp.status = HttpServletResponse.SC_OK
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
-                utils.printStatus("Валюта не найдена",resp)
+                utils.printStatus("Некорректный ввод",resp)
             }
-        } catch (e: Exception) {
+        } catch (e:IllegalArgumentException) {
+            resp.status = HttpServletResponse.SC_NOT_FOUND
+            utils.printStatus("Обменный курс не найден",resp)
+        }
+        catch (e: Exception) {
             e.printStackTrace()
             resp.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR
             utils.printStatus("Ошибка внутреннего сервера",resp)

@@ -49,7 +49,7 @@ class ExchangeRateServlet : HttpServlet() {
 
     override fun doPatch(req: HttpServletRequest, resp: HttpServletResponse) {
         val rate = req.getParameter("rate").toDouble()
-        val connectedCodes = req.pathInfo.trim('/')
+        val connectedCodes = req.pathInfo.trim('/').uppercase()
         try {
             if (connectedCodes.length == 6) {
                 val exchangeRate = exchangeService.patchRate(connectedCodes, rate)

@@ -60,7 +60,11 @@ class ExchangeService {
             exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         }
+        else{
+            throw IllegalArgumentException()
+        }
         return exchangeTransaction
     }
+
 
 }

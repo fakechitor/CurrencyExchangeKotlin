@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="CurrencyExchangeKotlin:war exploded" />
+      <artifact name="currencyExchange:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,8 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="chore: unused import">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/dao/ExchangeRateDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/dao/ExchangeRateDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/service/ExchangeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/service/ExchangeService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/servlets/CurrenciesServlet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/servlets/CurrenciesServlet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/servlets/CurrencyServlet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/servlets/CurrencyServlet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/servlets/ExchangeServlet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/servlets/ExchangeServlet.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +94,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.30.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Lenovo/IdeaProjects/CurrencyExchangeKotlin",
@@ -470,6 +474,26 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/service/ExchangeService.kt</url>
+          <line>38</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/service/ExchangeService.kt</url>
+          <line>65</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/service/ExchangeService.kt</url>
+          <line>56</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/service/ExchangeService.kt</url>
+          <line>57</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

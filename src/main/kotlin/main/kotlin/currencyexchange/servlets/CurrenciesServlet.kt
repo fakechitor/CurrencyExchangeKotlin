@@ -32,10 +32,10 @@ class CurrenciesServlet : HttpServlet() {
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
         try{
-            val currencyCode = req.getParameter("code")
+            val currencyCode = req.getParameter("code").uppercase()
             val name = req.getParameter("name")
             val sign = req.getParameter("sign")
-            if (currencyCode.isNullOrEmpty() || name.isNullOrEmpty() || sign.isNullOrEmpty()) {
+            if (currencyCode.isEmpty() || name.isNullOrEmpty() || sign.isNullOrEmpty()) {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
                 utils.printStatus("Некорректный ввод",resp)
             }

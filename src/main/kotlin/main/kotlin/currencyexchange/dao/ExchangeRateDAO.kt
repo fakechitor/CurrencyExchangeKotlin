@@ -34,8 +34,6 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
 
     private fun getByCode(code: String, connection: Connection?): ExchangeRateDTO {
         val codes = utils.splitCurrencyCodes(code)
-//        val targetId = currencyDAO.getByCode(codes[0]).id
-//        val baseId = currencyDAO.getByCode(codes[1]).id
         val sql = "SELECT ExchangeRates.ID, c.Code, c2.Code, Rate FROM ExchangeRates\n" +
                 "         JOIN main.Currencies c ON c.ID = ExchangeRates.BaseCurrencyId\n" +
                 "         JOIN main.Currencies c2 ON c2.ID = ExchangeRates.TargetCurrencyId\n" +
@@ -52,7 +50,6 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
                     val rate = rs.getDouble(4)
                     exchangeRateDTO = ExchangeRateDTO(id, baseCur, targetCur, rate)
                 }
-
             }
         }
         return exchangeRateDTO

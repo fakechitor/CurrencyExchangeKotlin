@@ -33,10 +33,10 @@ class ExchangeRatesServlet : HttpServlet() {
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
-            val baseCurrencyCode = req.getParameter("baseCurrencyCode")
-            val targetCurrencyCode = req.getParameter("targetCurrencyCode")
+            val baseCurrencyCode = req.getParameter("baseCurrencyCode").uppercase()
+            val targetCurrencyCode = req.getParameter("targetCurrencyCode").uppercase()
             val rate = req.getParameter("rate").toDouble()
-            if (baseCurrencyCode.isNullOrEmpty() || targetCurrencyCode.isNullOrEmpty() || rate <= 0) {
+            if (baseCurrencyCode.isEmpty() || targetCurrencyCode.isEmpty() || rate <= 0) {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
                 utils.printStatus("Некорректный ввод",resp)
             }

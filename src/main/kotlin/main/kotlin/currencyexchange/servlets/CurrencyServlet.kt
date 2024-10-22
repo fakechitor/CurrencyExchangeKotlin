@@ -16,20 +16,18 @@ class CurrencyServlet : HttpServlet() {
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         val pathInfo = req.pathInfo?.split("/") ?: listOf()
-        val code = if (pathInfo.size > 1) pathInfo[1] else ""
+        val code = if (pathInfo.size > 1) pathInfo[1].uppercase() else ""
         try{
             if (code != "") {
                 val currency = currencyService.getByCode(code)
                 val printWriter = resp.writer
-                if (currency != null) {
-                    if (currency.id != 0) {
-                        val jsonResponse = gson.toJson(currency)
-                        resp.status = HttpServletResponse.SC_OK
-                        printWriter.write(jsonResponse)
-                    } else {
-                        resp.status = HttpServletResponse.SC_NOT_FOUND
-                        utils.printStatus("Валюта не найдена",resp)
-                    }
+                if (currency.id != 0) {
+                    val jsonResponse = gson.toJson(currency)
+                    resp.status = HttpServletResponse.SC_OK
+                    printWriter.write(jsonResponse)
+                } else {
+                    resp.status = HttpServletResponse.SC_NOT_FOUND
+                    utils.printStatus("Валюта не найдена",resp)
                 }
             } else {
                 resp.status = HttpServletResponse.SC_BAD_REQUEST
