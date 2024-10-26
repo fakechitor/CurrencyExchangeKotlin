@@ -54,10 +54,10 @@ class ExchangeService {
             exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.times(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         } else if (exchangeRateDAO.getByCode("USD$baseCurrCode").id != 0 && exchangeRateDAO.getByCode("USD$targetCurrCode").id != 0) {
-            val USDToBaseCurr = BigDecimal(exchangeRateDAO.getByCode("USD$baseCurrCode").rate)
-            val USDToTargetCurr = BigDecimal(exchangeRateDAO.getByCode("USD$targetCurrCode").rate)
-            val exchangeRate = USDToTargetCurr.divide(USDToBaseCurr)
-            exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
+            val USDToBaseCurr = BigDecimal(exchangeRateDAO.getByCode("USD$baseCurrCode").rate.toString())
+            val USDToTargetCurr = BigDecimal(exchangeRateDAO.getByCode("USD$targetCurrCode").rate.toString())
+            val exchangeRate = USDToTargetCurr.divide(USDToBaseCurr,5,RoundingMode.HALF_UP)
+            exchangeTransaction.rate = exchangeRate
             exchangeTransaction.convertedAmount = amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         }
         else{
