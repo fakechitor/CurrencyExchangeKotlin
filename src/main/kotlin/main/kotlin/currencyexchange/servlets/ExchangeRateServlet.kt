@@ -23,7 +23,7 @@ class ExchangeRateServlet : HttpServlet() {
     }
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
-        val connectedCodes = req.pathInfo.trim('/')
+        val connectedCodes = req.pathInfo.trim('/').uppercase()
         try {
             if (connectedCodes.length == 6) {
                 val exchangeRate = exchangeService.getByCode(connectedCodes)
@@ -48,7 +48,9 @@ class ExchangeRateServlet : HttpServlet() {
     }
 
     override fun doPatch(req: HttpServletRequest, resp: HttpServletResponse) {
-        val rate = req.getParameter("rate").toDouble()
+        val reader = req.reader
+        val requestBody = reader.readText()
+        val rate = requestBody.split("=")[1].toDouble()
         val connectedCodes = req.pathInfo.trim('/').uppercase()
         try {
             if (connectedCodes.length == 6) {
