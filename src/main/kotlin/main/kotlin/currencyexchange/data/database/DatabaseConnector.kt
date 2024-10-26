@@ -9,7 +9,7 @@ import java.sql.Connection
 class DatabaseConnector {
     private val dbURL: String =
         "jdbc:sqlite:" + Paths.get(
-            File(this::class.java.classLoader.getResource("currencies.sqlite").file).absolutePath
+            File(this::class.java.classLoader.getResource("currencies.sqlite")!!.file).absolutePath
         ).toString()
     private val dataSource: HikariDataSource
 

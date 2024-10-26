@@ -122,7 +122,7 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
         return baseCode + targetCode
     }
 
-    fun isExchangeRateExists(exchangeRateDTO: ExchangeRateDTO) {
+    private fun isExchangeRateExists(exchangeRateDTO: ExchangeRateDTO) {
         val exchangeRate = getByCode(getCodesFromDTO(exchangeRateDTO))
         if (exchangeRate.id != 0) {
             throw CurrencyAlreadyExistsException()
