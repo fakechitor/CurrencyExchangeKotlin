@@ -6,7 +6,7 @@ object CurrencyMapper {
     fun toDTO(currency : Currency) : CurrencyDTO {
         return CurrencyDTO(
             id = currency.id,
-            currencyCode = currency.currencyCode,
+            code = currency.code,
             name = currency.name,
             sign = currency.sign,
         )
@@ -14,7 +14,7 @@ object CurrencyMapper {
     fun toModel(c : CurrencyDTO) : Currency {
         return Currency(
             id = c.id ?: 0,
-            currencyCode = c.currencyCode ?: "",
+            code = c.code ?: "",
             name = c.name ?: "",
             sign = c.sign ?: ""
         )

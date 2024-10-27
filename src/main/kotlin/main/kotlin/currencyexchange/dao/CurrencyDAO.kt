@@ -105,11 +105,11 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
             val sql = "INSERT INTO Currencies (Code, FullName, Sign) VALUES (?, ?, ?)"
             connector.getConnection()?.use { connection ->
                 connection.prepareStatement(sql).use { ps ->
-                    ps.setString(1, item.currencyCode)
+                    ps.setString(1, item.code)
                     ps.setString(2, item.name)
                     ps.setString(3, item.sign)
                     ps.executeUpdate()
-                    currency = getByCode(item.currencyCode!!)
+                    currency = getByCode(item.code!!)
                 }
             }
         } catch (e: SQLException) {
@@ -120,7 +120,7 @@ class CurrencyDAO() : DAO<Currency, CurrencyDTO>{
     }
 
     private fun isCurrencyExist(currencyDTO: CurrencyDTO){
-        val currency = getByCode(currencyDTO.currencyCode!!)
+        val currency = getByCode(currencyDTO.code!!)
         if (currency.id  != 0){
             throw CurrencyAlreadyExistsException()
         }

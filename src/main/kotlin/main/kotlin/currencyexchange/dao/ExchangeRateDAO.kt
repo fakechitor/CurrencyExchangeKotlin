@@ -117,8 +117,8 @@ class ExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
     }
 
     private fun getCodesFromDTO(exchangeRateDTO: ExchangeRateDTO): String {
-        val baseCode = exchangeRateDTO.baseCurrency!!.currencyCode
-        val targetCode = exchangeRateDTO.targetCurrency!!.currencyCode
+        val baseCode = exchangeRateDTO.baseCurrency!!.code
+        val targetCode = exchangeRateDTO.targetCurrency!!.code
         return baseCode + targetCode
     }
 
