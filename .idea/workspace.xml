@@ -9,11 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="feat: add frontend">
+    <list default="true" id="298be684-ca78-4eb2-8e91-1bc0f6d19fbc" name="Changes" comment="feat: add xml files">
       <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/database/DatabaseConnector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/main/kotlin/currencyexchange/data/database/DatabaseConnector.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +90,7 @@
     &quot;Kotlin.DatabaseKt.executor&quot;: &quot;Run&quot;,
     &quot;Maven.currencyExchange [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.currencyExchange [org.apache.maven.plugins:maven-install-plugin:3.1.1:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.currencyExchange [package].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Tomcat Server.Tomcat 10.1.30.executor&quot;: &quot;Run&quot;,
@@ -338,6 +339,8 @@
       <workItem from="1729953219147" duration="4831000" />
       <workItem from="1730031757176" duration="2134000" />
       <workItem from="1730122591183" duration="2107000" />
+      <workItem from="1730148780986" duration="406000" />
+      <workItem from="1730149285407" duration="1365000" />
     </task>
     <task id="LOCAL-00001" summary="1st commit">
       <option name="closed" value="true" />
@@ -539,7 +542,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730033680127</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: add xml files">
+      <option name="closed" value="true" />
+      <created>1730148918440</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1730148918441</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -557,7 +568,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1st commit" />
     <MESSAGE value="refactor: created new project" />
     <MESSAGE value="feat: add maven file and other xml files" />
     <MESSAGE value="feat: add Entity and Currency classes" />
@@ -582,7 +592,8 @@
     <MESSAGE value="feat: create CORSFilter" />
     <MESSAGE value="fix: rename field in DTO/Model" />
     <MESSAGE value="feat: add frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add frontend" />
+    <MESSAGE value="feat: add xml files" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add xml files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

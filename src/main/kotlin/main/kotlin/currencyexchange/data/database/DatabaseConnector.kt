@@ -2,15 +2,10 @@ package main.kotlin.currencyexchange.data.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import java.io.File
-import java.nio.file.Paths
 import java.sql.Connection
 
 class DatabaseConnector {
-    private val dbURL: String =
-        "jdbc:sqlite:" + Paths.get(
-            File(this::class.java.classLoader.getResource("currencies.sqlite")!!.file).absolutePath
-        ).toString()
+    private val dbURL = "jdbc:sqlite::resource:currencies.sqlite"
     private val dataSource: HikariDataSource
 
 

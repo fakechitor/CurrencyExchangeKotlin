@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const host = "http://localhost:8080/currencyExchange_war_exploded/"
+    const host = "http://localhost:8080/"
 
     function requestCurrencies() {
         $.ajax({
