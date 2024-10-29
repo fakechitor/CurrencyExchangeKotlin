@@ -14,7 +14,5 @@ class ServletFilter : Filter {
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET, PATCH, POST, PUT, DELETE, OPTIONS")
         httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
         chain.doFilter(request, response)
-        response.characterEncoding = "UTF-8"
-        response.contentType = "application/json"
     }
 }

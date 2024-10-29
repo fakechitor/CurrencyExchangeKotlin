@@ -18,6 +18,7 @@ class CurrencyServlet : HttpServlet() {
     private val validator = Validation()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         val pathInfo = req.pathInfo?.split("/") ?: listOf()
         val code = if (pathInfo.size > 1) pathInfo[1].uppercase() else ""
         try{

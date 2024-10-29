@@ -6,13 +6,12 @@ import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
-import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
+import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
 import main.kotlin.currencyexchange.service.CurrencyService
 import main.kotlin.currencyexchange.service.ExchangeService
 import main.kotlin.currencyexchange.utils.Utils
 import main.kotlin.currencyexchange.utils.Validation
-import java.util.Optional
 
 @WebServlet(name = "ExchangeRatesServlet", value = ["/exchangeRates"])
 class ExchangeRatesServlet : HttpServlet() {
@@ -23,6 +22,7 @@ class ExchangeRatesServlet : HttpServlet() {
     private val validator = Validation()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         try {
             val printWriter = resp.writer
             val exchangeRates = exchangeService.getAll()
@@ -36,6 +36,7 @@ class ExchangeRatesServlet : HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         try {
             val baseCurrencyCode = req.getParameter("baseCurrencyCode").uppercase()
             val targetCurrencyCode = req.getParameter("targetCurrencyCode").uppercase()

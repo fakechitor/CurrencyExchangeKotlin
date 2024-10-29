@@ -26,6 +26,7 @@ class ExchangeRateServlet : HttpServlet() {
     }
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         val connectedCodes = req.pathInfo.trim('/').uppercase()
         try {
             validator.makeCodesValidation(connectedCodes)
@@ -50,6 +51,7 @@ class ExchangeRateServlet : HttpServlet() {
     }
 
     override fun doPatch(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         val reader = req.reader
         val requestBody = reader.readText()
         val rate = requestBody.split("=")[1].toDouble()

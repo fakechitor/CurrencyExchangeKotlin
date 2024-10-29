@@ -20,6 +20,7 @@ class CurrenciesServlet : HttpServlet() {
     private val validator = Validation()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         try {
             val printWriter = resp.writer
             val currencies: List<CurrencyDTO> = currencyService.getAll()
@@ -33,6 +34,7 @@ class CurrenciesServlet : HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "application/json"
         try{
             val currencyCode = req.getParameter("code").uppercase()
             val name = req.getParameter("name")
