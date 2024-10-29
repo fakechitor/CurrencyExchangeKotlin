@@ -5,6 +5,8 @@ import main.kotlin.currencyexchange.dao.ExchangeRateDAO
 import main.kotlin.currencyexchange.data.entities.ExchangeRate
 import main.kotlin.currencyexchange.data.entities.ExchangeTransaction
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
+import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
+import main.kotlin.currencyexchange.exceptions.ExchangeRateIsNotExists
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -15,7 +17,7 @@ class ExchangeService {
     fun getByCode(code : String) : ExchangeRate {
         val exchangeRate = exchangeRateDAO.getByCode(code)
         if (exchangeRate.id == 0) {
-            throw IllegalArgumentException()
+            throw CurrencyCodeIsNotExists()
         }
         return exchangeRate
     }
@@ -61,7 +63,7 @@ class ExchangeService {
             exchangeTransaction.convertedAmount = amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP)
         }
         else{
-            throw IllegalArgumentException()
+            throw ExchangeRateIsNotExists()
         }
         return exchangeTransaction
     }

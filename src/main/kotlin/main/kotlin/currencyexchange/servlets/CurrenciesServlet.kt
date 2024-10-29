@@ -37,8 +37,7 @@ class CurrenciesServlet : HttpServlet() {
             val currencyCode = req.getParameter("code").uppercase()
             val name = req.getParameter("name")
             val sign = req.getParameter("sign")
-            validator.isCurrencyCodeValid(currencyCode)
-            validator.isNotEmpty(listOf(currencyCode,name,sign))
+            validator.makeCurrencyValidation(currencyCode,name,sign)
             val currencyDTO = CurrencyDTO(null, currencyCode, name, sign)
             val response = currencyService.save(currencyDTO)
             val printWriter = resp.writer

@@ -6,10 +6,13 @@ import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
+import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import main.kotlin.currencyexchange.service.CurrencyService
 import main.kotlin.currencyexchange.service.ExchangeService
 import main.kotlin.currencyexchange.utils.Utils
+import main.kotlin.currencyexchange.utils.Validation
+import java.util.Optional
 
 @WebServlet(name = "ExchangeRatesServlet", value = ["/exchangeRates"])
 class ExchangeRatesServlet : HttpServlet() {
@@ -17,6 +20,7 @@ class ExchangeRatesServlet : HttpServlet() {
     private val exchangeService = ExchangeService()
     private val currencyService = CurrencyService()
     private val utils = Utils()
+    private val validator = Validation()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
@@ -36,10 +40,7 @@ class ExchangeRatesServlet : HttpServlet() {
             val baseCurrencyCode = req.getParameter("baseCurrencyCode").uppercase()
             val targetCurrencyCode = req.getParameter("targetCurrencyCode").uppercase()
             val rate = req.getParameter("rate").toDouble()
-            if (baseCurrencyCode.isEmpty() || targetCurrencyCode.isEmpty() || rate <= 0) {
-                resp.status = HttpServletResponse.SC_BAD_REQUEST
-                utils.printStatus("Некорректный ввод",resp)
-            }
+            validator.makeExchangeRateValidation(baseCurrencyCode,targetCurrencyCode,rate)
             val baseCurrency = currencyService.getByCode(baseCurrencyCode)
             val targetCurrency = currencyService.getByCode(targetCurrencyCode)
             val exchangeRate = ExchangeRateDTO(null, baseCurrency, targetCurrency, rate)
@@ -48,7 +49,12 @@ class ExchangeRatesServlet : HttpServlet() {
             val jsonResponse = gson.toJson(response)
             printWriter.write(jsonResponse)
             resp.status = HttpServletResponse.SC_CREATED
-        } catch (e: IllegalArgumentException) {
+        }
+        catch (e: IllegalArgumentException) {
+            resp.status = HttpServletResponse.SC_BAD_REQUEST
+            utils.printStatus("Некорректный ввод",resp)
+        }
+        catch (e: CurrencyCodeIsNotExists) {
             resp.status = HttpServletResponse.SC_NOT_FOUND
             utils.printStatus("Валюта не найдена",resp)
         }

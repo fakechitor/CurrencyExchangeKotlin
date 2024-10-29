@@ -7,7 +7,6 @@ import java.io.IOException
 
 @WebFilter(urlPatterns = ["/*"])
 class ServletFilter : Filter {
-
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(request: ServletRequest?, response: ServletResponse, chain: FilterChain) {
         val httpResponse = response as HttpServletResponse
