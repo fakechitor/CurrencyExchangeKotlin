@@ -9,6 +9,7 @@ import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
 import main.kotlin.currencyexchange.service.CurrencyService
 import main.kotlin.currencyexchange.utils.Utils
+import main.kotlin.currencyexchange.utils.Validation
 
 
 @WebServlet(name = "getCurrencies", value = ["/currencies"])
@@ -16,6 +17,7 @@ class CurrenciesServlet : HttpServlet() {
     private val gson = Gson()
     private val currencyService = CurrencyService()
     private val utils = Utils()
+    private val validator = Validation()
 
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         try {
@@ -35,16 +37,18 @@ class CurrenciesServlet : HttpServlet() {
             val currencyCode = req.getParameter("code").uppercase()
             val name = req.getParameter("name")
             val sign = req.getParameter("sign")
-            if (currencyCode.isEmpty() || name.isNullOrEmpty() || sign.isNullOrEmpty()) {
-                resp.status = HttpServletResponse.SC_BAD_REQUEST
-                utils.printStatus("Некорректный ввод",resp)
-            }
+            validator.isCurrencyCodeValid(currencyCode)
+            validator.isNotEmpty(listOf(currencyCode,name,sign))
             val currencyDTO = CurrencyDTO(null, currencyCode, name, sign)
             val response = currencyService.save(currencyDTO)
             val printWriter = resp.writer
             val jsonResponse = gson.toJson(response)
             printWriter.write(jsonResponse)
             resp.status = HttpServletResponse.SC_CREATED
+        }
+        catch (e: IllegalArgumentException) {
+            resp.status = HttpServletResponse.SC_BAD_REQUEST
+            utils.printStatus("Некорректный ввод",resp)
         }
         catch (e: CurrencyAlreadyExistsException){
             resp.status = HttpServletResponse.SC_CONFLICT
