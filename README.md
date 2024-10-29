@@ -250,7 +250,7 @@ git clone https://github.com/fakechitor/CurrencyExchangeKotlin
 ```
 2) Перейти по данному пути
 ```bash
-cd cd CurrencyExchangeKotlin/src/main/webapp/js
+cd CurrencyExchangeKotlin/src/main/webapp/js
 ```
 3) Изменить [host](https://github.com/fakechitor/CurrencyExchangeKotlin/blob/9c16b7b57e386a9e7ac46ef19243e50c82b31766/src/main/webapp/js/app.js#L2) в app.js на ваш адрес
 4) Запустить проект через Tomcat версии 10+
