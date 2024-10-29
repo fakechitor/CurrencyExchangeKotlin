@@ -17,8 +17,9 @@ class Validation {
 
     @Throws(IllegalArgumentException::class)
     fun makeCurrencyValidation(code: String, name : String, sign : String){
-            isCurrencyCodeValid(code)
-            isNotEmpty(listOf(code,name,sign))
+        isCurrencyCodeValid(code)
+        isNotEmpty(listOf(code,name,sign))
+        isLengthValid(name,sign)
     }
 
     @Throws(IllegalArgumentException::class)
@@ -27,6 +28,14 @@ class Validation {
             if (elements[i] == "") {
                 throw IllegalArgumentException()
             }
+        }
+        return true
+    }
+
+    @Throws(IllegalArgumentException::class)
+    private fun isLengthValid(name: String, sign: String) : Boolean {
+        if (name.length > 30 || sign.length > 5) {
+            throw IllegalArgumentException()
         }
         return true
     }
