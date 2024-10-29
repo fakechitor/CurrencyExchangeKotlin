@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse
 import java.io.IOException
 
 @WebFilter(urlPatterns = ["/*"])
-class CORSFilter : Filter {
+class ServletFilter : Filter {
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(request: ServletRequest?, response: ServletResponse, chain: FilterChain) {
@@ -15,5 +15,7 @@ class CORSFilter : Filter {
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET, PATCH, POST, PUT, DELETE, OPTIONS")
         httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
         chain.doFilter(request, response)
+        response.characterEncoding = "UTF-8"
+        response.contentType = "application/json"
     }
 }
