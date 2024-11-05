@@ -1,7 +1,7 @@
 package main.kotlin.currencyexchange.service
 
-import main.kotlin.currencyexchange.dao.CurrencyDAO
-import main.kotlin.currencyexchange.dao.ExchangeRateDAO
+import main.kotlin.currencyexchange.dao.JdbcCurrencyDAO
+import main.kotlin.currencyexchange.dao.JdbcExchangeRateDAO
 import main.kotlin.currencyexchange.data.entities.ExchangeRate
 import main.kotlin.currencyexchange.data.entities.ExchangeTransaction
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
@@ -11,11 +11,11 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class ExchangeService {
-    private val exchangeRateDAO = ExchangeRateDAO()
-    private val currencyDAO = CurrencyDAO()
+    private val jdbcExchangeRateDAO = JdbcExchangeRateDAO()
+    private val jdbcCurrencyDAO = JdbcCurrencyDAO()
 
     fun getByCode(code : String) : ExchangeRate {
-        val exchangeRate = exchangeRateDAO.getByCode(code)
+        val exchangeRate = jdbcExchangeRateDAO.getByCode(code)
         if (exchangeRate.id == 0) {
             throw CurrencyCodeIsNotExists()
         }
@@ -23,15 +23,15 @@ class ExchangeService {
     }
 
     fun getAll() : List<ExchangeRateDTO> {
-        return exchangeRateDAO.getAll()
+        return jdbcExchangeRateDAO.getAll()
     }
 
     fun save(exchange: ExchangeRateDTO) : ExchangeRate {
-        return exchangeRateDAO.save(exchange)
+        return jdbcExchangeRateDAO.save(exchange)
     }
 
     fun patchRate(code: String, rate: Double): ExchangeRate {
-        return exchangeRateDAO.patchData(code, rate)
+        return jdbcExchangeRateDAO.patchData(code, rate)
     }
 
     fun exchange(exchangeData: List<String>): ExchangeTransaction {
@@ -39,25 +39,25 @@ class ExchangeService {
         val targetCurrCode = exchangeData[1]
         val amount = BigDecimal(exchangeData[2])
         val exchangeTransaction = ExchangeTransaction(
-            baseCurrency = currencyDAO.getByCode(baseCurrCode),
-            targetCurrency = currencyDAO.getByCode(targetCurrCode),
+            baseCurrency = jdbcCurrencyDAO.getByCode(baseCurrCode),
+            targetCurrency = jdbcCurrencyDAO.getByCode(targetCurrCode),
             rate = BigDecimal(0),
             amount = amount.setScale(2, RoundingMode.HALF_UP),
             convertedAmount = BigDecimal(0),
         )
-        if (exchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).id != 0) {
-            val exchangeRate = BigDecimal(exchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).rate)
+        if (jdbcExchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).id != 0) {
+            val exchangeRate = BigDecimal(jdbcExchangeRateDAO.getByCode(baseCurrCode + targetCurrCode).rate)
             exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.times(exchangeRate).setScale(2, RoundingMode.HALF_UP)
-        } else if (exchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).id != 0) {
-            var exchangeRate = BigDecimal(exchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).rate)
+        } else if (jdbcExchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).id != 0) {
+            var exchangeRate = BigDecimal(jdbcExchangeRateDAO.getByCode(targetCurrCode + baseCurrCode).rate)
             val a = BigDecimal("1")
             exchangeRate = a.divide(exchangeRate, 10, RoundingMode.HALF_UP)
             exchangeTransaction.rate = exchangeRate.setScale(5, RoundingMode.HALF_UP)
             exchangeTransaction.convertedAmount = amount.times(exchangeRate).setScale(2, RoundingMode.HALF_UP)
-        } else if (exchangeRateDAO.getByCode("USD$baseCurrCode").id != 0 && exchangeRateDAO.getByCode("USD$targetCurrCode").id != 0) {
-            val USDToBaseCurr = BigDecimal(exchangeRateDAO.getByCode("USD$baseCurrCode").rate.toString())
-            val USDToTargetCurr = BigDecimal(exchangeRateDAO.getByCode("USD$targetCurrCode").rate.toString())
+        } else if (jdbcExchangeRateDAO.getByCode("USD$baseCurrCode").id != 0 && jdbcExchangeRateDAO.getByCode("USD$targetCurrCode").id != 0) {
+            val USDToBaseCurr = BigDecimal(jdbcExchangeRateDAO.getByCode("USD$baseCurrCode").rate.toString())
+            val USDToTargetCurr = BigDecimal(jdbcExchangeRateDAO.getByCode("USD$targetCurrCode").rate.toString())
             val exchangeRate = USDToTargetCurr.divide(USDToBaseCurr,5,RoundingMode.HALF_UP)
             exchangeTransaction.rate = exchangeRate
             exchangeTransaction.convertedAmount = amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP)

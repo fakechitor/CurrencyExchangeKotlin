@@ -1,28 +1,28 @@
 package main.kotlin.currencyexchange.service
 
-import main.kotlin.currencyexchange.dao.CurrencyDAO
+import main.kotlin.currencyexchange.dao.JdbcCurrencyDAO
 import main.kotlin.currencyexchange.data.entities.Currency
 import main.kotlin.currencyexchange.dto.CurrencyDTO
 import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
 
 class CurrencyService {
-    private val currencyDAO = CurrencyDAO()
+    private val jdbcCurrencyDAO = JdbcCurrencyDAO()
 
     @Throws(CurrencyCodeIsNotExists::class)
     fun getByCode(code : String) : Currency {
-        val currency = currencyDAO.getByCode(code)
+        val currency = jdbcCurrencyDAO.getByCode(code)
         if (currency.id!=0){
             return currency
         }
         throw CurrencyCodeIsNotExists()
     }
     fun getById(id : Int) : Currency? {
-        return currencyDAO.getById(id)
+        return jdbcCurrencyDAO.getById(id)
     }
     fun getAll() : List<CurrencyDTO> {
-        return currencyDAO.getAll()
+        return jdbcCurrencyDAO.getAll()
     }
     fun save(currencyDTO: CurrencyDTO) : Currency{
-        return currencyDAO.save(currencyDTO)
+        return jdbcCurrencyDAO.save(currencyDTO)
     }
 }
