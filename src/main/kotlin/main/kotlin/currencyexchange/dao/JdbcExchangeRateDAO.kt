@@ -11,7 +11,7 @@ import java.sql.Connection
 import java.sql.SQLException
 
 
-class JdbcExchangeRateDAO : DAO<ExchangeRate, ExchangeRateDTO> {
+class JdbcExchangeRateDAO : ExchangeRateDAO<ExchangeRate, ExchangeRateDTO>  {
     private val connector = DatabaseConnector()
     private val mapper = ExchangeRateMapper
     private val jdbcCurrencyDAO = JdbcCurrencyDAO()
