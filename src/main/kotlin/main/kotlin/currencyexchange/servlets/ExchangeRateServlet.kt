@@ -65,7 +65,7 @@ class ExchangeRateServlet : HttpServlet() {
         }
         catch (e: IllegalArgumentException) {
             resp.status = HttpServletResponse.SC_BAD_REQUEST
-            utils.printStatus("Валюта не найдена",resp)
+            utils.printStatus("Некорректный ввод", resp)
         }
         catch (e: Exception) {
             e.printStackTrace()
