@@ -16,9 +16,6 @@ class CurrencyService {
         }
         throw CurrencyCodeIsNotExists()
     }
-    fun getById(id : Int) : Currency? {
-        return jdbcCurrencyDAO.getById(id)
-    }
     fun getAll() : List<CurrencyDTO> {
         return jdbcCurrencyDAO.getAll()
     }
