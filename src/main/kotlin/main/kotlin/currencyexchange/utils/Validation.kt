@@ -1,5 +1,7 @@
 package main.kotlin.currencyexchange.utils
 
+import java.util.Currency
+
 class Validation {
     @Throws(IllegalArgumentException::class)
     fun makeCodesValidation(code: String) {
@@ -42,9 +44,11 @@ class Validation {
 
     @Throws(IllegalArgumentException::class)
     private fun isCurrencyCodeValid(code : String){
+        Currency.getInstance(code)
         if (!isCodeContainsOnlyEnglish(code) || code.length != 3){
             throw IllegalArgumentException()
         }
+
     }
 
     @Throws(IllegalArgumentException::class)
