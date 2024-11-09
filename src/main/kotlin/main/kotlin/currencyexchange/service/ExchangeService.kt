@@ -2,11 +2,11 @@ package main.kotlin.currencyexchange.service
 
 import main.kotlin.currencyexchange.dao.JdbcCurrencyDAO
 import main.kotlin.currencyexchange.dao.JdbcExchangeRateDAO
-import main.kotlin.currencyexchange.data.entities.ExchangeRate
-import main.kotlin.currencyexchange.data.entities.ExchangeTransaction
+import main.kotlin.currencyexchange.data.model.ExchangeRate
+import main.kotlin.currencyexchange.data.model.ExchangeTransaction
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
-import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
-import main.kotlin.currencyexchange.exceptions.ExchangeRateIsNotExists
+import main.kotlin.currencyexchange.exception.CurrencyCodeIsNotExists
+import main.kotlin.currencyexchange.exception.ExchangeRateIsNotExists
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -38,6 +38,12 @@ class ExchangeService {
         val baseCurrCode = exchangeData[0]
         val targetCurrCode = exchangeData[1]
         val amount = BigDecimal(exchangeData[2])
+        val exchangeTransaction = getExchangedTransaction(baseCurrCode, targetCurrCode, amount)
+        return exchangeTransaction
+    }
+
+    private fun getExchangedTransaction(baseCurrCode : String, targetCurrCode : String, amount : BigDecimal) : ExchangeTransaction{
+
         val exchangeTransaction = ExchangeTransaction(
             baseCurrency = jdbcCurrencyDAO.getByCode(baseCurrCode),
             targetCurrency = jdbcCurrencyDAO.getByCode(targetCurrCode),
@@ -67,6 +73,5 @@ class ExchangeService {
         }
         return exchangeTransaction
     }
-
 
 }
