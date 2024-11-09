@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.servlets
+package main.kotlin.currencyexchange.controller
 
 import jakarta.servlet.*
 import jakarta.servlet.annotation.WebFilter

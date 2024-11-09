@@ -1,3 +1,3 @@
-package main.kotlin.currencyexchange.exceptions
+package main.kotlin.currencyexchange.exception
 
 class CurrencyAlreadyExistsException : Exception()

@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.servlets
+package main.kotlin.currencyexchange.controller
 
 import com.google.gson.Gson
 import jakarta.servlet.annotation.WebServlet
@@ -6,12 +6,12 @@ import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import main.kotlin.currencyexchange.dto.ExchangeRateDTO
-import main.kotlin.currencyexchange.exceptions.CurrencyAlreadyExistsException
-import main.kotlin.currencyexchange.exceptions.CurrencyCodeIsNotExists
+import main.kotlin.currencyexchange.exception.CurrencyAlreadyExistsException
+import main.kotlin.currencyexchange.exception.CurrencyCodeIsNotExists
 import main.kotlin.currencyexchange.service.CurrencyService
 import main.kotlin.currencyexchange.service.ExchangeService
-import main.kotlin.currencyexchange.utils.Utils
-import main.kotlin.currencyexchange.utils.Validation
+import main.kotlin.currencyexchange.util.Utils
+import main.kotlin.currencyexchange.util.Validation
 
 @WebServlet(name = "ExchangeRatesServlet", value = ["/exchangeRates"])
 class ExchangeRatesServlet : HttpServlet() {

@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.utils
+package main.kotlin.currencyexchange.util
 
 import com.google.gson.Gson
 import jakarta.servlet.http.HttpServletResponse

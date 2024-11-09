@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.data.entities
+package main.kotlin.currencyexchange.data.model
 
 class Currency(
     var id : Int,

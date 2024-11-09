@@ -1,4 +1,4 @@
-package main.kotlin.currencyexchange.utils
+package main.kotlin.currencyexchange.util
 
 import java.util.Currency
 
